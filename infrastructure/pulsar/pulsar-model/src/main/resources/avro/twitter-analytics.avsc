@@ -1,0 +1,26 @@
+ {"namespace": "com.antwerptechnologies.pulsar.pulsar.avro.model",
+   "type": "record",
+   "name": "TwitterAnalyticsAvroModel",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string"
+    },
+    {
+      "name": "averageTweetLength",
+      "type": "double"
+    },
+    {
+      "name": "trendingTopic",
+      "type": "string"
+    },
+    {
+      "name": "trendingTopicCount",
+      "type": "long"
+    },
+    {
+      "name": "wordCount",
+      "type": "int"
+    }
+  ]
+ }

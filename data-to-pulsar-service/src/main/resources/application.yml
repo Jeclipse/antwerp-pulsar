@@ -1,0 +1,26 @@
+server:
+  port: 8180
+# Pulsar config
+spring:
+  application:
+    name: data-to-pulsar-service
+  pulsar:
+    producer:
+      topic-name: tweet-topic
+      partitions: 3
+      batching-enabled: true
+      batching-max-bytes: 16384
+      batching-max-messages: 1000
+      batching-max-publish-delay: 300
+      
+data-to-pulsar-service:
+  twitter-keywords:
+    - Java
+    - Sports
+    - Food
+    - Politics
+  enable-mock-tweets: true
+  mock-min-tweet-length: 5
+  mock-max-tweet-length: 30
+  mock-sleep-ms: 20
+
