@@ -21,11 +21,8 @@ public class AnalyticsRepositoryImpl<T extends BaseEntity<PK>, PK> implements An
     @PersistenceContext
     protected EntityManager em;
 
-    @Value("${spring.jpa.properties.hibernate.jdbc.batch_size:100}")
+    @Value("${spring.jpa.properties.hibernate.jdbc.batch_size:50}")
     protected int batchSize;
-    
-    protected static int currentBatchCount = 0;
-
 
     @Override
     @Transactional

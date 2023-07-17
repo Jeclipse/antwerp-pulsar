@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.pulsar.client.api.SubscriptionType;
 import org.apache.pulsar.common.schema.SchemaType;
 import org.springframework.pulsar.annotation.PulsarListener;
+import org.springframework.pulsar.listener.AckMode;
 import org.springframework.stereotype.Service;
 
 import com.antwerptechnologies.pulsar.analytics.consumer.service.entity.AnalyticsEntity;
@@ -29,7 +30,7 @@ public class AnalyticsPulsarConsumer implements PulsarConsumer<TwitterAvroModel>
 	// This way our consumers can consume concurrently with max throughput
 	@Override
 	@PulsarListener(subscriptionName = "tweet-topic-subscription", topics = "tweet-topic", schemaType = SchemaType.AVRO, batch = true,
-			                             subscriptionType = SubscriptionType.Failover)
+			                             subscriptionType = SubscriptionType.Shared, concurrency = "3", ackMode = AckMode.BATCH)
 	public void receive(List<TwitterAvroModel> messages) {
 		log.info("{} messages received", messages.size());
 		// Generate Analytics for every batch of tweets and persist the analytics data

@@ -3,9 +3,11 @@ server:
 # H2 config
 spring:
   pulsar:
-    producer:
-      partitions: 3
-      topic-name: tweet-analytics-topic
+    listener:
+      batch-timeout: 300
+      max-num-bytes: 16384
+      max-num-messages: 1000
+        
   application:
     name: analytics-consumer-service
   datasource:

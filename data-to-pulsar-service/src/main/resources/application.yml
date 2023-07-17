@@ -7,11 +7,12 @@ spring:
   pulsar:
     producer:
       topic-name: tweet-topic
-      partitions: 3
       batching-enabled: true
       batching-max-bytes: 16384
       batching-max-messages: 1000
       batching-max-publish-delay: 300
+      compression-type: snappy
+      partitions: 3
       
 data-to-pulsar-service:
   twitter-keywords:
@@ -22,5 +23,5 @@ data-to-pulsar-service:
   enable-mock-tweets: true
   mock-min-tweet-length: 5
   mock-max-tweet-length: 30
-  mock-sleep-ms: 20
+  mock-sleep-ms: 1
 

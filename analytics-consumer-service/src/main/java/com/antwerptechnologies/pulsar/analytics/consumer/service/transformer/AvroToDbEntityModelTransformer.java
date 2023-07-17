@@ -38,26 +38,21 @@ public class AvroToDbEntityModelTransformer {
 				.flatMap(avroModel -> Stream.of(avroModel.getText().trim().split("\\s+")))
 				.filter(word -> List.of("Java", "Sports", "Food", "Politics").contains(word))
 				.collect(Collectors.groupingBy(String::toLowerCase, Collectors.counting()));
-
-		String mostTrendingTopic = topicCounts.entrySet().stream()
-				.filter(entry -> entry.getValue() == 1)
-				.max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElse(null);
-
-		// Calculate the number of times the most trending topic occurred in the list
-		Map.Entry<String, Long> maxEntry = topicCounts.entrySet()
-		        .stream()
-		        .max(Map.Entry.comparingByValue())
-		        .orElse(null);
-
-		// Assign the value to a Long if it exists
-		Long topicOccurrences = (maxEntry != null) ? maxEntry.getValue() : 0L;
+		
+        String mostTrendingTopic = topicCounts.entrySet().stream()
+                .max(Map.Entry.comparingByValue())
+                .map(Map.Entry::getKey)
+                .orElse(null);
+	
+       // Calculate the number of times the most trending topic occurred in the list
+        Long topicOccurrences = topicCounts.getOrDefault(mostTrendingTopic, 0L);
 
 		// Calculate the number of words in all the tweet texts in the list
 		Integer totalWords = avroModels.stream()
 				.mapToInt(avroModel -> avroModel.getText().trim().split("\\s+").length)
 				.sum();
 		
-		log.info("Analytics calculated for entity of id {}", id);
+		log.info("Analytics calculated for entity of id {}, averageTweetLength {}, mostTrendingTopic {}, topicOccurrences {}", id, averageTweetLength, mostTrendingTopic, topicOccurrences);
 		
         return new AnalyticsEntity(id, averageTweetLength, mostTrendingTopic, topicOccurrences, totalWords);
         
