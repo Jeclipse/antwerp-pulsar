@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Docker volumes ###
+infrastructure/docker-compose/data/
